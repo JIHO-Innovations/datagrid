@@ -1031,6 +1031,11 @@ class DataGrid extends Control
 		return $is_filter || $this->forceFilterActive;
 	}
 
+	public function isFilterDefault(): bool
+	{
+		return $this->filter === $this->defaultFilter;
+	}
+
 	/**
 	 * Tell that filter is active from whatever reasons
 	 *
