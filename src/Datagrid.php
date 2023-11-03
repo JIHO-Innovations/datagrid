@@ -1275,7 +1275,7 @@ class Datagrid extends Control
 			return;
 		}
 
-		$values = (array) $form->getUnsafeValues(null);
+		$values = (array) $form->getUntrustedValues(null);
 
 		if ($this->getPresenterInstance()->isAjax()) {
 			if (isset($form['group_action']['submit']) && $form['group_action']['submit']->isSubmittedBy()) {
