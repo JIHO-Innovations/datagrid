@@ -60,7 +60,7 @@ class Action extends Column
 	{
 		parent::__construct($grid, $key, '', $name);
 
-		$this->class = sprintf('btn btn-xs %s', $grid::$btnSecondaryClass);
+		$this->class = sprintf('btn btn-sm %s', $grid::$btnSecondaryClass);
 	}
 
 	public function render(Row $row): mixed

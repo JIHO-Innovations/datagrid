@@ -5,7 +5,7 @@ namespace Contributte\Datagrid\Traits;
 trait TButtonClass
 {
 
-	protected string $class = 'btn btn-xs btn-default btn-secondary';
+	protected string $class = 'btn btn-sm btn-secondary';
 
 	/**
 	 * @return static
