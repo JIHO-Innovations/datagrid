@@ -260,7 +260,7 @@
 												{if isset($filter['inline_edit'][$key])}
 													{if $filter['inline_edit'][$key] instanceof \Nette\Forms\Container}
 														{foreach $filter['inline_edit'][$key]->getControls() as $inlineEditControl}
-															{input $inlineEditControl}
+															<div n:class="!$iterator->last ? mb-2">{input $inlineEditControl}</div>
 														{/foreach}
 													{else}
 														{input $filter['inline_edit'][$key]}
@@ -429,7 +429,7 @@
 					{if isset($filter['inline_add'][$key])}
 						{if $filter['inline_add'][$key] instanceof \Nette\Forms\Container}
 							{foreach $filter['inline_add'][$key]->getControls() as $inlineAddControl}
-								{input $inlineAddControl}
+								<div n:class="!$iterator->last ? mb-2">{input $inlineAddControl}</div>
 							{/foreach}
 						{else}
 							{input $filter['inline_add'][$key]}
