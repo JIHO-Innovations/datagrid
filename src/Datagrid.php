@@ -2814,6 +2814,14 @@ class Datagrid extends Control
 
 	/**
 	 * @internal
+	 */
+	public function getSortableUrl(): string
+	{
+		return $this->lookup(\Nette\Application\UI\Control::class)->link($this->getSortableHandler());
+	}
+
+	/**
+	 * @internal
 	 * @throws UnexpectedValueException
 	 */
 	public function getSortableParentPath(): string
