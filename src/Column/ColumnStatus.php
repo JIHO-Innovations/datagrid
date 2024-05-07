@@ -28,6 +28,8 @@ class ColumnStatus extends Column
 	/** @var array */
 	protected array $options = [];
 
+	public bool $nullable = false;
+
 	public function __construct(
 		Datagrid $grid,
 		string $key,
@@ -52,10 +54,17 @@ class ColumnStatus extends Column
 		return $this->options;
 	}
 
+	public function setNullable(bool $nullable = true): static
+	{
+		$this->nullable = $nullable;
+		return $this;
+	}
+
 	/**
 	 * @throws DatagridColumnStatusException
+	 * @return ($throw is true ? Option : ?Option)
 	 */
-	public function getOption(mixed $value): Option
+	public function getOption(mixed $value, bool $throw = true): ?Option
 	{
 		foreach ($this->options as $option) {
 			if ($option->getValue() === $value) {
@@ -63,7 +72,10 @@ class ColumnStatus extends Column
 			}
 		}
 
-		throw new DatagridColumnStatusException(sprintf('Option [%s] does not exist', $value));
+		if($throw)
+			throw new DatagridColumnStatusException(sprintf('Option [%s] does not exist', $value));
+
+		return null;
 	}
 
 	public function getColumn(): string
@@ -76,13 +88,10 @@ class ColumnStatus extends Column
 	 */
 	public function getCurrentOption(Row $row): ?Option
 	{
-		foreach ($this->getOptions() as $option) {
-			if ($option->getValue() === $row->getValue($this->getColumn())) {
-				return $option;
-			}
-		}
-
-		return null;
+		$value = $row->getValue($this->getColumn());
+		if($value === null && $this->nullable)
+			$value = "";
+		return $this->getOption($value, false);
 	}
 
 	/**

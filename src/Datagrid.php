@@ -2014,11 +2014,16 @@ class Datagrid extends Control
 			throw new DatagridException(sprintf('ColumnStatus[%s] does not exist', $key));
 		}
 
-		if (!$this->columns[$key] instanceof ColumnStatus) {
+		$column = $this->columns[$key];
+
+		if (!$column instanceof ColumnStatus) {
 			throw new UnexpectedValueException();
 		}
 
-		$this->columns[$key]->onChange($id, $value);
+		// Validate that $value is a valid option
+		$column->getOption($value);
+
+		$column->onChange($id, $value);
 	}
 
 	public function redrawItem(string|int $id, mixed $primaryWhereColumn = null): void
