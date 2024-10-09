@@ -17,7 +17,7 @@ class Option
 
 	protected string $class = 'btn-success';
 
-	protected string $classSecondary = 'btn btn-xs';
+	protected string $classSecondary = 'btn btn-sm';
 
 	protected string $classInDropdown = 'ajax dropdown-item';
 

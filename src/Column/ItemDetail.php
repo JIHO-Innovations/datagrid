@@ -42,7 +42,7 @@ class ItemDetail
 	public function __construct(protected Datagrid $grid, protected string $primaryWhereColumn)
 	{
 		$this->title = 'contributte_datagrid.show';
-		$this->class = sprintf('btn btn-xs %s ajax', $grid::$btnSecondaryClass);
+		$this->class = sprintf('btn btn-sm %s ajax', $grid::$btnSecondaryClass);
 		$this->icon = 'eye';
 	}
 
