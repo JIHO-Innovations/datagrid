@@ -42,6 +42,9 @@ class GroupActionCollection
 			if ($action instanceof GroupButtonAction) {
 				$control = $container->addSubmit((string) $id, $action->getTitle());
 
+				// Do not validate filters when submitting group action
+				$control->setValidationScope([$container]);
+
 				/**
 				 * User may set a class to the form control
 				 */
