@@ -28,6 +28,7 @@ use Contributte\Datagrid\Filter\FilterMultiSelect;
 use Contributte\Datagrid\Filter\FilterRange;
 use Contributte\Datagrid\Filter\FilterSelect;
 use Contributte\Datagrid\Filter\FilterText;
+use Contributte\Datagrid\Filter\IFilterCustom;
 use Contributte\Datagrid\Filter\IFilterDate;
 use Contributte\Datagrid\Filter\SubmitButton;
 use Contributte\Datagrid\GroupAction\GroupAction;
@@ -874,6 +875,19 @@ class Datagrid extends Control
 		unset($this->actions[$key]);
 
 		return $this;
+	}
+
+	public function addFilterCustom(IFilterCustom $filter): void
+	{
+		if ($filter->getGrid() !== $this) {
+			throw new InvalidArgumentException;
+		}
+
+		$key = $filter->getKey();
+
+		$this->addFilterCheck($key);
+
+		$this->filters[$key] = $filter;
 	}
 
 	public function addFilterText(
