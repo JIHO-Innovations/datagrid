@@ -61,10 +61,13 @@ class ColumnStatus extends Column
 	 * @throws DatagridColumnStatusException
 	 * @return ($throw is true ? Option : ?Option)
 	 */
-	public function getOption(mixed $value, bool $throw = true): ?Option
+	public function getOption(mixed $value, bool $throw = true, bool $compareAsString = false): ?Option
 	{
 		foreach ($this->options as $option) {
-			if ($option->getValue() === $value) {
+			if (
+				($compareAsString && (string)$option->getValue() === (string)$value) ||
+				(!$compareAsString && $option->getValue() === $value)
+			) {
 				return $option;
 			}
 		}
@@ -86,7 +89,7 @@ class ColumnStatus extends Column
 	public function getCurrentOption(Row $row): ?Option
 	{
 		$value = $row->getValue($this->getColumn());
-		if($value === null && $this->nullable)
+		if ($value === null && $this->nullable)
 			$value = "";
 		return $this->getOption($value, false);
 	}

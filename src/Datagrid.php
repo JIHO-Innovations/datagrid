@@ -2025,10 +2025,11 @@ class Datagrid extends Control
 			throw new UnexpectedValueException();
 		}
 
-		// Validate that $value is a valid option
-		$column->getOption($value);
+		// Find option with $value using string comparison
+		$option = $column->getOption($value, true, true);
 
-		$column->onChange($id, $value);
+		// Call handler with typed value
+		$column->onChange($id, $option->getValue());
 	}
 
 	public function redrawItem(string|int $id, mixed $primaryWhereColumn = null): void
