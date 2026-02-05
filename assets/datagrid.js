@@ -189,7 +189,7 @@ $(document).on('change', 'select[data-autosubmit-per-page]', function() {
 	if (code === 13) {
 		e.stopPropagation();
 		e.preventDefault();
-		return $(this).closest('tr').find('.col-action-inline-edit [name="inline_edit[submit]"]').click();
+		return $(this).closest('tr').find('.col-action-inline-edit').find('[name="inline_edit[submit]"], [name="inline_add[submit]"]').click();
 	}
 });
 
