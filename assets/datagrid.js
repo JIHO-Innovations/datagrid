@@ -88,7 +88,7 @@ if (typeof naja !== "undefined") {
 	};
 
 	dataGridLoad = function () {
-		naja.load();
+		naja.uiHandler.bindUI(document.body);
 	};
 
 	dataGridSubmitForm = function (form) {
