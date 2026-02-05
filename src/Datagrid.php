@@ -162,7 +162,7 @@ class Datagrid extends Control
 
 	protected array $itemsPerPageList = [10, 20, 50, 'all'];
 
-	protected ?int $defaultPerPage = null;
+	protected string|int|null $defaultPerPage = null;
 
 	protected ?string $templateFile = null;
 
@@ -2144,9 +2144,9 @@ class Datagrid extends Control
 	/**
 	 * @return static
 	 */
-	public function setDefaultPerPage(int $count): self
+	public function setDefaultPerPage(string|int|null $defaultPerPage): self
 	{
-		$this->defaultPerPage = $count;
+		$this->defaultPerPage = $defaultPerPage;
 
 		return $this;
 	}
