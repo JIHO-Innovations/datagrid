@@ -11,7 +11,11 @@ use Contributte\Datagrid\Traits\TButtonTitle;
 use Contributte\Datagrid\Traits\TButtonTryAddIcon;
 use Nette\Forms\Container;
 use Nette\Forms\Controls\BaseControl;
+use Nette\Forms\Controls\Checkbox;
+use Nette\Forms\Controls\CheckboxList;
+use Nette\Forms\Controls\SelectBox;
 use Nette\Forms\Controls\SubmitButton;
+use Nette\Forms\Controls\TextBase;
 use Nette\SmartObject;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Html;
@@ -66,7 +70,7 @@ class InlineEdit
 	public function __construct(protected Datagrid $grid, protected ?string $primaryWhereColumn = null)
 	{
 		$this->title = 'contributte_datagrid.edit';
-		$this->class = sprintf('btn btn-xs %s ajax', $grid::$btnSecondaryClass);
+		$this->class = sprintf('btn btn-sm %s ajax', $grid::$btnSecondaryClass);
 		$this->icon = 'pencil pencil-alt';
 
 		$this->onControlAfterAdd[] = [$this, 'addControlsClasses'];
@@ -182,7 +186,7 @@ class InlineEdit
 				case 'submit':
 					if ($control instanceof SubmitButton) {
 						$control->setValidationScope([$container]);
-						$control->setHtmlAttribute('class', 'btn btn-xs btn-primary');
+						$control->setHtmlAttribute('class', 'btn btn-sm btn-primary');
 					}
 
 					break;
@@ -190,14 +194,20 @@ class InlineEdit
 				case 'cancel':
 					if ($control instanceof SubmitButton) {
 						$control->setValidationScope([]);
-						$control->setHtmlAttribute('class', 'btn btn-xs btn-danger');
+						$control->setHtmlAttribute('class', 'btn btn-sm btn-danger');
 					}
 
 					break;
 
 				default:
 					if ($control instanceof BaseControl && $control->getControlPrototype()->getAttribute('class') === null) {
-						$control->setHtmlAttribute('class', 'form-control form-control-sm');
+						if ($control instanceof TextBase) {
+							$control->setHtmlAttribute('class', 'form-control form-control-sm');
+						} else if ($control instanceof SelectBox) {
+							$control->setHtmlAttribute('class', 'form-select form-select-sm');
+						} else if ($control instanceof Checkbox || $control instanceof CheckboxList) {
+							$control->getControlPrototype()->class = 'form-check-input me-2';
+						}
 					}
 
 					break;

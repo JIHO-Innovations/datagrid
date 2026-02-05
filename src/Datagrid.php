@@ -86,7 +86,9 @@ class Datagrid extends Control
 
 	public static string $iconPrefix = 'fas fa-';
 
-	public static string $btnSecondaryClass = 'btn-default btn-secondary';
+	public static string $btnPrimaryClass = 'btn-primary';
+
+	public static string $btnSecondaryClass = 'btn-primary-light';
 
 	/**
 	 * Default form method
@@ -2579,7 +2581,8 @@ class Datagrid extends Control
 
 		$this->inlineAdd
 			->setTitle('contributte_datagrid.add')
-			->setIcon('plus');
+			->setIcon('plus')
+			->setClass(sprintf('btn %s ajax', $this::$btnPrimaryClass));
 
 		return $this->inlineAdd;
 	}

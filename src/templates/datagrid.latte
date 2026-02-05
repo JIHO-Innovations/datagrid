@@ -23,7 +23,7 @@
 					<div class="row text-end datagrid-collapse-filters-button-row" n:if="$control->hasCollapsibleOuterFilters()">
 						<div class="col-sm-12">
 							{include reset-filter}
-							<button class="btn btn-xs btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#datagrid-{$control->getFullName()}-row-filters">
+							<button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#datagrid-{$control->getFullName()}-row-filters">
 								<i n:block="icon-filter" class="{$iconPrefix}filter"></i> {='contributte_datagrid.show_filter'|translate}
 							</button>
 						</div>
@@ -67,7 +67,7 @@
 					</div>
 				{/block}
 			{/if}
-			<table class="{block table-class}table table-hover table-striped table-bordered table-sm{/block}" n:snippet="table" n:block="data">
+			<table class="{block table-class}table{/block}" n:snippet="table" n:block="data">
 				<thead n:block="header">
 					<tr class="row-group-actions" n:if="$hasGroupActions || $exports || $toolbarButtons || $control->canHideColumns() || $inlineAdd" n:block="group-actions">
 						<th colspan="{$control->getColumnsCount()}" class="datagrid-th-form-inline">
@@ -110,7 +110,7 @@
 									{/if}
 
 									<div class="btn-group">
-										<button type="button" class="btn btn-xs {$btnSecondaryClass} dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" n:if="$control->canHideColumns()">
+										<button type="button" class="btn btn-sm {$btnSecondaryClass} dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" n:if="$control->canHideColumns()">
 											<i n:block="icon-gear" class="{$iconPrefix}cog"></i>
 										</button>
 										<ul class="dropdown-menu dropdown-menu-end dropdown-menu--grid">
@@ -262,7 +262,7 @@
 												{if isset($filter['inline_edit'][$key])}
 													{if $filter['inline_edit'][$key] instanceof \Nette\Forms\Container}
 														{foreach $filter['inline_edit'][$key]->getControls() as $inlineEditControl}
-															{input $inlineEditControl}
+															<div n:class="!$iterator->last ? mb-2">{input $inlineEditControl}</div>
 														{/foreach}
 													{else}
 														{input $filter['inline_edit'][$key]}
@@ -274,8 +274,8 @@
 										{/foreach}
 
 										<td class="col-action col-action-inline-edit">
-											{input $filter['inline_edit']['cancel'], class => 'btn btn-xs btn-danger'}
-											{input $filter['inline_edit']['submit'], class => 'btn btn-xs btn-primary'}
+											{input $filter['inline_edit']['cancel'], class => 'btn btn-sm btn-danger'}
+											{input $filter['inline_edit']['submit'], class => 'btn btn-sm btn-primary'}
 											{input $filter['inline_edit']['_id']}
 											{input $filter['inline_edit']['_primary_where_column']}
 										</td>
@@ -305,7 +305,7 @@
 													{/if}
 												{/if}
 											{/foreach}
-											<span class="handle-sort btn btn-xs {$btnSecondaryClass}" n:if="$control->isSortable()">
+											<span class="handle-sort btn btn-sm {$btnSecondaryClass}" n:if="$control->isSortable()">
 												<i n:block="icon-arrows-v" class="{$iconPrefix}arrows-v {$iconPrefix}arrows-alt-v"></i>
 											</span>
 											{if $inlineEdit && $row->hasInlineEdit()}
@@ -434,7 +434,7 @@
 					{if isset($filter['inline_add'][$key])}
 						{if $filter['inline_add'][$key] instanceof \Nette\Forms\Container}
 							{foreach $filter['inline_add'][$key]->getControls() as $inlineAddControl}
-								{input $inlineAddControl}
+								<div n:class="!$iterator->last ? mb-2">{input $inlineAddControl}</div>
 							{/foreach}
 						{else}
 							{input $filter['inline_add'][$key]}
