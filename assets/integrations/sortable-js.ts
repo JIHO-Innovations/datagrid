@@ -33,6 +33,10 @@ export class SortableJS implements SortableInterface {
 		const sortable = datagrid.el.querySelector<HTMLElement>("[data-sortable]");
 		if (!sortable) return;
 
+		// The tbody is replaced whenever the grid is redrawn (e.g. after a sort
+		// drop). Destroy any stale instance so re-init can't stack listeners.
+		Sortable.get(sortable)?.destroy();
+
 		new Sortable(sortable, {
 			handle: '.handle-sort',
 			draggable: 'tr',
@@ -46,6 +50,10 @@ export class SortableJS implements SortableInterface {
 
 	initSortableTree(datagrid: Datagrid): void {
 		datagrid.el.querySelectorAll<HTMLElement>(".datagrid-tree-item-children").forEach((el) => {
+			// Destroy any stale instance so re-init can't stack listeners on
+			// containers that survive a redraw.
+			Sortable.get(el)?.destroy();
+
 			new Sortable(el, {
 				group: 'datagrid-tree',
 				handle: '.handle-sort',

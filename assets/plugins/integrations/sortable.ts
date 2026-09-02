@@ -10,6 +10,8 @@ export class SortablePlugin implements DatagridPlugin {
 		this.sortable.initSortableTree(datagrid);
 
 		datagrid.ajax.addEventListener('success', ({detail: {payload}}) => {
+			// Column-header sorting: after a filter change the thead is not
+			// redrawn, so re-point the sort links to carry the new filter state.
 			if (payload._datagrid_sort) {
 				for (const key in payload._datagrid_sort) {
 					const href = payload._datagrid_sort[key];
@@ -22,7 +24,6 @@ export class SortablePlugin implements DatagridPlugin {
 						element.setAttribute("data-href", href);
 					}
 				}
-				this.sortable.initSortable(datagrid);
 			}
 
 			if (payload._datagrid_tree) {
@@ -50,8 +51,13 @@ export class SortablePlugin implements DatagridPlugin {
 						}
 					}
 				}
-				this.sortable.initSortableTree(datagrid);
 			}
+
+			// Drag & drop reordering: any grid reload replaces the sortable
+			// container(s), so re-bind SortableJS to the new node(s). Both calls
+			// are no-ops when the grid has no matching container.
+			this.sortable.initSortable(datagrid);
+			this.sortable.initSortableTree(datagrid);
 		})
 		return true;
 	}
